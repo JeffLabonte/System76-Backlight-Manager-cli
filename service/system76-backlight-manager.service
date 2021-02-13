@@ -1,0 +1,9 @@
+[Unit]
+Description=Control the backlight of your System76 laptop
+
+[Service]
+ExecStart=/usr/local/bin/system76-backlight-manager
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
