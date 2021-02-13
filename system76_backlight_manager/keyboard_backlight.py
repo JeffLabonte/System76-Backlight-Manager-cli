@@ -47,9 +47,9 @@ class KeyboardBacklight:
         self.red_threshold = context.get("red_threshold", 25)
         self.yellow_threshold = context.get("yellow_threshold", 50)
 
-        self.mode = context.get("mode", "breath")
+        self.mode = context.get("mode", "breathe")
         self.mode_functions_mapping = {
-            "breath": self.breath,
+            "breathe": self.breathe,
             "static": self.static,
         }
 
@@ -60,7 +60,7 @@ class KeyboardBacklight:
             self.mode_functions_mapping[self.mode]()
             self.change_color(battery_level=self.battery_handler.get_battery_level())
 
-    def breath(self):
+    def breathe(self):
         self._ramp_up()
         self._ramp_down()
 

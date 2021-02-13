@@ -1,4 +1,4 @@
-from battery_backlight.common import read_file
+from system76_backlight_manager.common import read_file
 
 
 class Battery:

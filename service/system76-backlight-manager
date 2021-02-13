@@ -1,9 +1,0 @@
-[Unit]
-Description=Control your System76 Laptop Backlight
-
-[Service]
-ExecStart=/usr/local/bin/battery-backlight
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target

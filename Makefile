@@ -27,4 +27,4 @@ venv:
 	fi
 
 tests:
-	py.test battery_backlight/tests/
+	py.test system76_backlight_manager/tests/
