@@ -2,7 +2,7 @@ import subprocess
 from time import sleep
 from typing import Dict
 
-from battery_backlight.battery import Battery
+from system76-backlight-manager.battery import Battery
 from battery_backlight.colors import GREEN, YELLOW, RED
 from battery_backlight.common import read_file, write_file
 
