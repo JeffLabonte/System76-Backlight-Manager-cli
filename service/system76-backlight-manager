@@ -1,5 +1,5 @@
 [Unit]
-Description=Change color of your keyboard depending on battery level
+Description=Control your System76 Laptop Backlight
 
 [Service]
 ExecStart=/usr/local/bin/battery-backlight
