@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 install: install_conf
-	@echo "[-] Installing battery_backlight"
+	@echo "[-] Installing system76-backlight-manager"
 	sudo python3 setup.py install
 	@echo "[-] Installing system76-backlight-manager.service Service"
 	sudo install -m644 service/system76-backlight-manager.service /etc/systemd/system/
