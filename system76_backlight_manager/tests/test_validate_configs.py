@@ -7,7 +7,7 @@ from system76_backlight_manager.__main__ import validate_configs
     "configurations",
     [
         {
-            "mode": "breath",
+            "mode": "breathe",
         },
         {
             "mode": "static",
@@ -21,7 +21,7 @@ from system76_backlight_manager.__main__ import validate_configs
             "yellow_threshold": 99,
         },
         {
-            "mode": "breath",
+            "mode": "breathe",
             "brightness_min_value": 254,
             "brightness_max_value": 255,
             "red_threshold": 98,
@@ -42,7 +42,7 @@ def test_validate_configs__pass_valid_configurations__should_not_raise_exception
             "mode": 123,
         },
         {
-            "mode": "breathee",
+            "mode": "breathe",
         },
         {
             "brightness_max_value": 255,

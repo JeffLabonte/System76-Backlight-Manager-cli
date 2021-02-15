@@ -1,6 +1,6 @@
 import logging
 
-logger = logging.getLogger(f'battery_backlight.{__name__}')
+logger = logging.getLogger(f'system76_backlight_manager.{__name__}')
 
 
 def read_file(path: str) -> str:
