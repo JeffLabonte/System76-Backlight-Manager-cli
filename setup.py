@@ -8,7 +8,7 @@ def get_requirements():
 
 setup(
     name="system76-backlight-manager",
-    version="0.1",
+    version="0.2",
     description="Control the backlight of your System76 laptop",
     url="https://github.com/JeffLabonte/System76-Backlight-Manager-cli",
     author="Jean-François Labonté",
