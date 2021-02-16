@@ -16,6 +16,11 @@ setup(
     include_package_data=True,
     install_requires=get_requirements(),
     license="GPLv3",
-    packages=["system76_backlight_manager", "system76_backlight_manager.schema"],
+    packages=[
+        "system76_backlight_manager/",
+        "system76_backlight_manager/services",
+        "system76_backlight_manager/paths",
+        "system76_backlight_manager/schema",
+    ],
     entry_points={"console_scripts": ["system76-backlight-manager=system76_backlight_manager.__main__:main"]},
 )
