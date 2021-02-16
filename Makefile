@@ -17,14 +17,18 @@ update_config:
 	sudo cp configs/battery-backlight.conf /etc/
 
 
-install_dev: venv
-	.venv/bin/pip install -r requirements.test.txt
+install_dev: venv 
+	.venv/bin/pip install -r requirements.dev.txt
+	make install_hook
 
 venv:
 	if [[ ! -d .venv/ ]]; \
 	then \
 		python3 -m venv .venv; \
 	fi
+
+install_hook:
+	pre-commit install
 
 tests:
 	py.test system76_backlight_manager/tests/
