@@ -1,7 +1,7 @@
 version: 2
 updates:
 - package-ecosystem: pip
-  directory: "/battery_backlight"
+  directory: "/"
   schedule:
     interval: daily
     time: "11:00"
