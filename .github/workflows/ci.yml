@@ -25,9 +25,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        cd backlight_tool
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.test.txt; fi
     - name: Test with pytest
       run: |
-        cd backlight_tool && make tests
+        make tests
