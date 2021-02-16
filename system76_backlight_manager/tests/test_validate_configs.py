@@ -42,7 +42,7 @@ def test_validate_configs__pass_valid_configurations__should_not_raise_exception
             "mode": 123,
         },
         {
-            "mode": "breathe",
+            "mode": "breath",
         },
         {
             "brightness_max_value": 255,

@@ -21,15 +21,11 @@ def validate_configs(configurations):
 
     if max_value := configurations.get("brightness_max_value"):
         if max_value <= configurations.get("brightness_min_value"):
-            raise RuntimeError(
-                "Expect brightness_min_value to be greater than brightness_max_value"
-            )
+            raise RuntimeError("Expect brightness_min_value to be greater than brightness_max_value")
 
     if yellow_threshold := configurations.get("yellow_threshold"):
         if yellow_threshold <= configurations.get("red_threshold"):
-            raise RuntimeError(
-                "Expect yellow_threshold to be greater than red_threshold"
-            )
+            raise RuntimeError("Expect yellow_threshold to be greater than red_threshold")
 
 
 def read_configurations():

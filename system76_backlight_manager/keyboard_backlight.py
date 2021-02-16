@@ -8,11 +8,7 @@ from system76_backlight_manager.common import read_file, write_file
 
 
 def get_laptop_model() -> str:
-    return (
-        subprocess.check_output(["dmidecode", "-s", "system-product-name"])
-        .decode("utf-8")
-        .strip()
-    )
+    return subprocess.check_output(["dmidecode", "-s", "system-product-name"]).decode("utf-8").strip()
 
 
 class KeyboardBacklight:
