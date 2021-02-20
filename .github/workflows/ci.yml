@@ -27,8 +27,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.test.txt; fi
-    - name: Test with pytest
+        make install_cli
+    - name: Run Unit Tests
       run: |
-        make tests
+        make unit_test
