@@ -36,3 +36,12 @@ def test_keyboard_backlight__init_valid_model__should_not_raise(
 ):
     keyboard_backlight = setup_keyboard_backlight(laptop_model=valid_model)
     assert len(keyboard_backlight.brightness_color_paths) == number_of_region
+
+
+def test_keyboard_backlight__init_invalid_model__should_raise_exception():
+    invalid_model = "oryp11"
+    with pytest.raises(
+        RuntimeError,
+        match=f"{invalid_model} is not supported by this script",
+    ):
+        setup_keyboard_backlight(laptop_model=invalid_model)
