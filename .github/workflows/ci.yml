@@ -27,7 +27,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        make install_cli
+        make install_ci
     - name: Run Unit Tests
       run: |
         make unit_test
