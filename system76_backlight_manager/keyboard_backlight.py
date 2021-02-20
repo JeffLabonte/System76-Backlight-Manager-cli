@@ -29,11 +29,6 @@ class KeyboardBacklight:
         self.brightness_path = keyboard_backlight_paths["brightness_path"]
         self.brightness_color_paths = keyboard_backlight_paths["brightness_color"]
 
-        self.mode_functions_mapping = {
-            "breathe": self.breathe,
-            "static": self.static,
-        }
-
     def breathe(self):
         self._ramp_up()
         self._ramp_down()

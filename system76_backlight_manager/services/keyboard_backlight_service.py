@@ -20,6 +20,11 @@ class KeyboardBacklightService(KeyboardBacklight):
 
         self.battery_handler = Battery()
 
+        self.mode_functions_mapping = {
+            "breathe": self.breathe,
+            "static": self.static,
+        }
+
     def run(self):
         while True:
             self.mode_functions_mapping[self.mode]()
