@@ -24,7 +24,7 @@ class KeyboardBacklight:
         )
 
         if keyboard_backlight_paths is None:
-            raise RuntimeError(f"{laptop_model} is not supported by this script")
+            raise RuntimeError(f"{self.laptop_model} is not supported by this script")
 
         self.brightness_path = keyboard_backlight_paths["brightness_path"]
         self.brightness_color_paths = keyboard_backlight_paths["brightness_color"]
