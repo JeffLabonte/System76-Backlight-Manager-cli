@@ -26,18 +26,20 @@ class KeyboardBacklight:
         if keyboard_backlight_paths is None:
             raise RuntimeError(f"{self.laptop_model} is not supported by this script")
 
+        self.max_brightness_path = keyboard_backlight_paths["max_brightness_path"]
         self.brightness_path = keyboard_backlight_paths["brightness_path"]
         self.brightness_color_paths = keyboard_backlight_paths["brightness_color"]
 
-    def breathe(self):
+    def breathe(self) -> None:
         self._ramp_up()
         self._ramp_down()
 
-    def static(self):
-        if self._read_brightness() != self.brightness_max_value:
-            self._set_full_brightness()
+    def static(self, brightness_level: int) -> None:
+        if brightness_level > self.max_brightness:
+            raise RuntimeError("Brightness level must not exceed {self.max_brightness}")
+        self.brightness = brightness_level
 
-    def set_color(self, color: str, position: Position):
+    def set_color(self, color: str, position: Position) -> None:
         if not position in self.brightness_color_paths:
             raise RuntimeError(f"{position} is not supported for model {self.laptop_model}")
         write_file(self.brightness_color_paths[position], color)
@@ -49,6 +51,10 @@ class KeyboardBacklight:
     @brightness.setter
     def brightness(self, value: int):
         write_file(path=self.brightness_path, value=str(value))
+
+    @property
+    def max_brightness(self):
+        return int(read_file(path=self.max_brightness_path))
 
     def _ramp_up(self):
         current_brightness = self._read_brightness()
