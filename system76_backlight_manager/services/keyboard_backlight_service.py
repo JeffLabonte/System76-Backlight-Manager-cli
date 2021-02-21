@@ -11,7 +11,7 @@ class KeyboardBacklightService(KeyboardBacklight):
     def __init__(self, context: Dict):
         super().__init__()
 
-        self.mode = context.get("mode", Mode.BREATHE)
+        self.mode = context.get("mode", Mode.BREATHE.value)
         self.brightness_max_value = context.get("brightness_max_value", 255)
         self.brightness_min_value = context.get("brightness_min_value", 15)
 

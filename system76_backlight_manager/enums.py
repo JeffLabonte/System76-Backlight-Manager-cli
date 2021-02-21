@@ -9,5 +9,5 @@ class Position(Enum):
 
 
 class Mode(Enum):
-    BREATHE = "breath"
+    BREATHE = "breathe"
     STATIC = "static"
