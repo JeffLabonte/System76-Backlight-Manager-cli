@@ -5,7 +5,7 @@ from system76_backlight_manager.keyboard_backlight import KeyboardBacklight
 import pytest
 
 
-def setup_keyboard_backlight(laptop_model: str) -> KeyboardBacklight:
+def setup_keyboard_backlight(laptop_model: str = "oryp6") -> KeyboardBacklight:
     with patch(
         "system76_backlight_manager.keyboard_backlight.get_laptop_model",
         return_value=laptop_model,
@@ -45,3 +45,27 @@ def test_keyboard_backlight__init_invalid_model__should_raise_exception():
         match=f"{invalid_model} is not supported by this script",
     ):
         setup_keyboard_backlight(laptop_model=invalid_model)
+
+
+def test_keyboard_backlight__breathe__should_call_ramp_up_ramp_down():
+    with patch.object(KeyboardBacklight, "_ramp_up",) as ramp_up_mock, patch.object(
+        KeyboardBacklight,
+        "_ramp_down",
+    ) as ramp_down_mock:
+        kb = setup_keyboard_backlight()
+        kb.breathe()
+
+        ramp_up_mock.assert_called_once()
+        ramp_down_mock.assert_called_once()
+
+
+def test_keyboard_backlight__static___should_call_read_file_and_write():
+    with patch(
+        "system76_backlight_manager.keyboard_backlight.read_file",
+        return_value=255,
+    ) as read_file_mock, patch("system76_backlight_manager.keyboard_backlight.write_file") as write_file_mock:
+        kb = setup_keyboard_backlight()
+        kb.static(brightness_level=255)
+
+        read_file_mock.assert_called_once()
+        write_file_mock.assert_called_once()
