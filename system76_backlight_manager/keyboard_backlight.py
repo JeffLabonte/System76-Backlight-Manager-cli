@@ -1,81 +1,60 @@
-import subprocess
-from time import sleep
 from typing import Dict
 
-from system76_backlight_manager.battery import Battery
-from system76_backlight_manager.colors import GREEN, YELLOW, RED
-from system76_backlight_manager.common import read_file, write_file
-
-
-def get_laptop_model() -> str:
-    return (
-        subprocess.check_output(["dmidecode", "-s", "system-product-name"])
-        .decode("utf-8")
-        .strip()
-    )
+from system76_backlight_manager.common import get_laptop_model, read_file, write_file
+from system76_backlight_manager.enums import Mode, Position
+from system76_backlight_manager.paths.backlights import (
+    FOUR_BACKLIGHT_PATH,
+    ONE_BACKLIGHT_PATH,
+)
 
 
 class KeyboardBacklight:
-    BACKLIGHT_DEVICE_PATH = "/sys/class/leds/system76_acpi::kbd_backlight"
 
-    MODEL_BACKLIGHT_PATH_MAPPING = {
-        "Oryx Pro": {
-            "brightness_path": "/sys/class/leds/system76_acpi::kbd_backlight/brightness",
-            "brightness_color": "/sys/class/leds/system76_acpi::kbd_backlight/color",
-        },
-        "Serval WS": {
-            "brightness_path": "/sys/class/leds/system76::kbd_backlight/brightness",
-            "brightness_color": "/sys/class/leds/system76::kbd_backlight/color_left",
-        },
+    MODEL_NUMBER_BACKLIGHT_MAPPING = {
+        "oryp6": ONE_BACKLIGHT_PATH,
+        "oryp4": FOUR_BACKLIGHT_PATH,
+        "serw11": FOUR_BACKLIGHT_PATH,
+        # More to come
     }
 
-    def __init__(self, context: Dict, battery_handler: Battery):
-        laptop_model = get_laptop_model()
-        keyboard_backlight_paths = self.MODEL_BACKLIGHT_PATH_MAPPING.get(
-            laptop_model,
+    def __init__(self):
+        self.laptop_model = get_laptop_model()
+        keyboard_backlight_paths = self.MODEL_NUMBER_BACKLIGHT_MAPPING.get(
+            self.laptop_model,
         )
 
         if keyboard_backlight_paths is None:
-            raise RuntimeError(f"{laptop_model} is not supported by this script")
+            raise RuntimeError(f"{self.laptop_model} is not supported by this script")
 
+        self.max_brightness_path = keyboard_backlight_paths["max_brightness_path"]
         self.brightness_path = keyboard_backlight_paths["brightness_path"]
-        self.brightness_color = keyboard_backlight_paths["brightness_color"]
+        self.brightness_color_paths = keyboard_backlight_paths["brightness_color"]
 
-        self.brightness_max_value = context.get("brightness_max_value", 255)
-        self.brightness_min_value = context.get("brightness_min_value", 15)
-
-        self.red_threshold = context.get("red_threshold", 25)
-        self.yellow_threshold = context.get("yellow_threshold", 50)
-
-        self.mode = context.get("mode", "breathe")
-        self.mode_functions_mapping = {
-            "breathe": self.breathe,
-            "static": self.static,
-        }
-
-        self.battery_handler = battery_handler
-
-    def run(self):
-        while True:
-            self.mode_functions_mapping[self.mode]()
-            self.change_color(battery_level=self.battery_handler.get_battery_level())
-
-    def breathe(self):
+    def breathe(self) -> None:
         self._ramp_up()
         self._ramp_down()
 
-    def static(self):
-        if self._read_brightness() != self.brightness_max_value:
-            self._set_full_brightness()
-        sleep(0.2)
+    def static(self, brightness_level: int) -> None:
+        if brightness_level > self.max_brightness:
+            raise RuntimeError("Brightness level must not exceed {self.max_brightness}")
+        self.brightness = brightness_level
 
-    def change_color(self, battery_level):
-        if battery_level < self.red_threshold:
-            self._set_color(RED)
-        elif battery_level < self.yellow_threshold:
-            self._set_color(YELLOW)
-        else:
-            self._set_color(GREEN)
+    def set_color(self, color: str, position: Position) -> None:
+        if not position in self.brightness_color_paths:
+            raise RuntimeError(f"{position} is not supported for model {self.laptop_model}")
+        write_file(self.brightness_color_paths[position], color)
+
+    @property
+    def brightness(self) -> int:
+        return int(read_file(path=self.brightness_path))
+
+    @brightness.setter
+    def brightness(self, value: int):
+        write_file(path=self.brightness_path, value=str(value))
+
+    @property
+    def max_brightness(self):
+        return int(read_file(path=self.max_brightness_path))
 
     def _ramp_up(self):
         current_brightness = self._read_brightness()
@@ -89,14 +68,8 @@ class KeyboardBacklight:
             self._set_brightness(value=current_brightness)
             current_brightness -= 1
 
-    def _set_color(self, color):
+    def update_color(self, color):
         write_file(path=self.brightness_color, value=color)
 
-    def _set_full_brightness(self):
-        write_file(path=self.brightness_path, value=str(self.brightness_max_value))
-
-    def _set_brightness(self, value: int):
-        write_file(path=self.brightness_path, value=str(value))
-
-    def _read_brightness(self) -> int:
-        return int(read_file(path=self.brightness_path))
+    def is_multi_region_color(self) -> bool:
+        return len(self.brightness_color_paths) > 1

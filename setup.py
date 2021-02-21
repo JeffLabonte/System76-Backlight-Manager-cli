@@ -8,7 +8,7 @@ def get_requirements():
 
 setup(
     name="system76-backlight-manager",
-    version="0.1",
+    version="0.2",
     description="Control the backlight of your System76 laptop",
     url="https://github.com/JeffLabonte/System76-Backlight-Manager-cli",
     author="Jean-François Labonté",
@@ -16,10 +16,11 @@ setup(
     include_package_data=True,
     install_requires=get_requirements(),
     license="GPLv3",
-    packages=["system76_backlight_manager", "system76_backlight_manager.schema"],
-    entry_points={
-        "console_scripts": [
-            "system76-backlight-manager=system76_backlight_manager.__main__:main"
-        ]
-    },
+    packages=[
+        "system76_backlight_manager/",
+        "system76_backlight_manager/services",
+        "system76_backlight_manager/paths",
+        "system76_backlight_manager/schema",
+    ],
+    entry_points={"console_scripts": ["system76-backlight-manager=system76_backlight_manager.__main__:main"]},
 )

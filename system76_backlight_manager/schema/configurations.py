@@ -2,7 +2,7 @@ schema = {
     "mode": {
         "type": "string",
         "required": False,
-        "allowed": ['breathe', 'static'],
+        "allowed": ["breathe", "static"],
     },
     "brightness_max_value": {
         "type": "number",
