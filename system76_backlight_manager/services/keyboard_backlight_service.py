@@ -1,3 +1,4 @@
+from time import sleep
 from typing import Dict
 
 from system76_backlight_manager.common import write_file, read_file
@@ -10,6 +11,8 @@ from system76_backlight_manager.enums import Mode
 class KeyboardBacklightService(KeyboardBacklight):
     def __init__(self, context: Dict):
         super().__init__()
+
+        self.first_loop = True
 
         self.mode = context.get("mode", Mode.BREATHE.value)
         self.brightness_max_value = context.get("brightness_max_value", 255)
@@ -29,6 +32,12 @@ class KeyboardBacklightService(KeyboardBacklight):
         while True:
             self.mode_functions_mapping[self.mode]()
             self.change_color()
+
+    def static(self):
+        if self.first_loop:
+            self.brightness = self.max_brightness
+            self.first_loop = False
+        sleep(0.5)
 
     def change_color(self):
         battery_level = self.battery_handler.get_battery_level()
