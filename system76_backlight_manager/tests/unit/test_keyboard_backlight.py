@@ -1,5 +1,6 @@
 from unittest.mock import patch
 
+from system76_backlight_manager.enums import Position
 from system76_backlight_manager.keyboard_backlight import KeyboardBacklight
 
 import pytest
@@ -69,3 +70,103 @@ def test_keyboard_backlight__static___should_call_read_file_and_write():
 
         read_file_mock.assert_called_once()
         write_file_mock.assert_called_once()
+
+
+@pytest.mark.parametrize(
+    "laptop_model, position, expected_path, color",
+    [
+        (
+            "darp5",
+            Position.CENTER,
+            "/sys/class/leds/system76::kbd_backlight/color_left",
+            "FFFFFF",
+        ),
+        (
+            "oryp6",
+            Position.CENTER,
+            "/sys/class/leds/system76_acpi::kbd_backlight/color",
+            "FFFFFF",
+        ),
+        (
+            "oryp4",
+            Position.CENTER,
+            "/sys/class/leds/system76::kbd_backlight/color_center",
+            "FFFFFF",
+        ),
+        (
+            "oryp4",
+            Position.LEFT,
+            "/sys/class/leds/system76::kbd_backlight/color_left",
+            "FFFFFF",
+        ),
+        (
+            "oryp4",
+            Position.RIGHT,
+            "/sys/class/leds/system76::kbd_backlight/color_right",
+            "FFFFFF",
+        ),
+        (
+            "oryp4",
+            Position.EXTRA,
+            "/sys/class/leds/system76::kbd_backlight/color_extra",
+            "FFFFFF",
+        ),
+        (
+            "serw11",
+            Position.CENTER,
+            "/sys/class/leds/system76::kbd_backlight/color_center",
+            "FFFFFF",
+        ),
+        (
+            "serw11",
+            Position.LEFT,
+            "/sys/class/leds/system76::kbd_backlight/color_left",
+            "FFFFFF",
+        ),
+        (
+            "serw11",
+            Position.RIGHT,
+            "/sys/class/leds/system76::kbd_backlight/color_right",
+            "FFFFFF",
+        ),
+        (
+            "serw11",
+            Position.EXTRA,
+            "/sys/class/leds/system76::kbd_backlight/color_extra",
+            "FFFFFF",
+        ),
+        (
+            "serw12",
+            Position.CENTER,
+            "/sys/class/leds/system76::kbd_backlight/color_center",
+            "FFFFFF",
+        ),
+        (
+            "serw12",
+            Position.LEFT,
+            "/sys/class/leds/system76::kbd_backlight/color_left",
+            "FFFFFF",
+        ),
+        (
+            "serw12",
+            Position.RIGHT,
+            "/sys/class/leds/system76::kbd_backlight/color_right",
+            "FFFFFF",
+        ),
+        (
+            "serw12",
+            Position.EXTRA,
+            "/sys/class/leds/system76::kbd_backlight/color_extra",
+            "FFFFFF",
+        ),
+    ],
+)
+def test_keyboard_backlight__set_color__should_call_write_file_when_position_valid(
+    laptop_model,
+    position,
+    expected_path,
+    color,
+):
+    with patch("system76_backlight_manager.keyboard_backlight.write_file") as write_mock:
+        setup_keyboard_backlight(laptop_model=laptop_model).set_color(color, position)
+        write_mock.assert_called_once_with(expected_path, color)
