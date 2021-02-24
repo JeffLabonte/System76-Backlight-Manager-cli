@@ -5,12 +5,8 @@ import yaml
 from cerberus import Validator
 
 from system76_backlight_manager.common import read_file
-from system76_backlight_manager.services.keyboard_backlight_service import (
-    KeyboardBacklightService,
-)
-from system76_backlight_manager.schema.configurations import (
-    schema as configurations_schema,
-)
+from system76_backlight_manager.services.keyboard_backlight_service import KeyboardBacklightService
+from system76_backlight_manager.schema.configurations import schema as configurations_schema
 
 CONFIGURATION_PATH = "/etc/system76-backlight-manager.conf"
 

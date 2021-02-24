@@ -4,14 +4,16 @@ from system76_backlight_manager.common import get_laptop_model, read_file, write
 from system76_backlight_manager.enums import Mode, Position
 from system76_backlight_manager.paths.backlights import (
     FOUR_BACKLIGHT_PATH,
-    ONE_BACKLIGHT_PATH,
+    SINGLE_BACKLIGHT_PATH,
+    LEGACY_SINGLE_BACKLIGHT_PATH,
 )
 
 
 class KeyboardBacklight:
 
     MODEL_NUMBER_BACKLIGHT_MAPPING = {
-        "oryp6": ONE_BACKLIGHT_PATH,
+        "darp5": LEGACY_SINGLE_BACKLIGHT_PATH,
+        "oryp6": SINGLE_BACKLIGHT_PATH,
         "oryp4": FOUR_BACKLIGHT_PATH,
         "serw11": FOUR_BACKLIGHT_PATH,
         "serw12": FOUR_BACKLIGHT_PATH,
