@@ -1,5 +1,6 @@
 from unittest.mock import patch
 
+from system76_backlight_manager.enums import Position
 from system76_backlight_manager.keyboard_backlight import KeyboardBacklight
 
 import pytest
