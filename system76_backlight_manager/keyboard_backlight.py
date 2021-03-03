@@ -43,9 +43,10 @@ class KeyboardBacklight:
         self.brightness = brightness_level
 
     def set_color(self, color: str, position: Position) -> None:
-        if not position in self.brightness_color_paths:
+        if path := self.brightness_color_paths.get(position.name, None):
+            write_file(path, color)
+        else:
             raise RuntimeError(f"{position} is not supported for model {self.laptop_model}")
-        write_file(self.brightness_color_paths[position], color)
 
     @property
     def brightness(self) -> int:
