@@ -33,5 +33,4 @@ install_hook:
 	pre-commit install
 
 unit_test:
-	PYTHONPATH=. py.test --cov=system76_backlight_manager .
-
+	py.test --cov=system76_backlight_manager system76_backlight_manager/tests/unit

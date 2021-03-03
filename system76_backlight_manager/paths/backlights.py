@@ -1,4 +1,4 @@
-from ..enums import Position
+from system76_backlight_manager.enums import Position
 
 
 SINGLE_BACKLIGHT_PATH = {

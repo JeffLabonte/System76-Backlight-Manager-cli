@@ -1,8 +1,8 @@
 from typing import Dict
 
-from .common import get_laptop_model, read_file, write_file
-from .enums import Mode, Position
-from .paths.backlights import (
+from system76_backlight_manager.common import get_laptop_model, read_file, write_file
+from system76_backlight_manager.enums import Mode, Position
+from system76_backlight_manager.paths.backlights import (
     FOUR_BACKLIGHT_PATH,
     SINGLE_BACKLIGHT_PATH,
     LEGACY_SINGLE_BACKLIGHT_PATH,
