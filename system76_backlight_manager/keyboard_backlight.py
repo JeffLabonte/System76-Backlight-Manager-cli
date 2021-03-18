@@ -16,6 +16,7 @@ class KeyboardBacklight:
         "darp6": SINGLE_BACKLIGHT_PATH,
         "oryp6": SINGLE_BACKLIGHT_PATH,
         "oryp4": FOUR_BACKLIGHT_PATH,
+        "pang10": LEGACY_SINGLE_BACKLIGHT_PATH,
         "serw11": FOUR_BACKLIGHT_PATH,
         "serw12": FOUR_BACKLIGHT_PATH,
         # More to come
