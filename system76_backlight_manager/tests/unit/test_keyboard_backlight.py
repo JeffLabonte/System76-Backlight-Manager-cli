@@ -22,6 +22,10 @@ def setup_keyboard_backlight(laptop_model: str = "oryp6") -> KeyboardBacklight:
             1,
         ),
         (
+            "bonw14",
+            1,
+        ),
+        (
             "oryp4",
             4,
         ),
