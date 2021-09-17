@@ -8,11 +8,15 @@ A python script to manage your keyboard backlight on your S76 laptop.
 
 ## To setup the development environment and run the software
 
+```bash
 make install-dev
 source .venv/bin/activate
 python system76_backlight_manager
+```
 
 ## To install the software
 
+```bash
 make install
 sudo systemctl start system76-backlight-manager.service
+```
