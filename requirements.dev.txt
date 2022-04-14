@@ -1,2 +1,2 @@
 -r requirements.test.txt
-pre-commit==2.17.0
+pre-commit==2.18.1
