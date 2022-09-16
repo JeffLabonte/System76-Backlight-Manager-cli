@@ -12,12 +12,12 @@ from system76_backlight_manager.paths.backlights import (
 class KeyboardBacklight:
 
     MODEL_NUMBER_BACKLIGHT_MAPPING = {
+        "bonw14": SINGLE_BACKLIGHT_PATH,
         "darp5": LEGACY_SINGLE_BACKLIGHT_PATH,
         "darp6": SINGLE_BACKLIGHT_PATH,
-        "oryp6": SINGLE_BACKLIGHT_PATH,
-        "bonw14": SINGLE_BACKLIGHT_PATH,
         "oryp4": FOUR_BACKLIGHT_PATH,
-        "pang10": LEGACY_SINGLE_BACKLIGHT_PATH,
+        "oryp6": SINGLE_BACKLIGHT_PATH,
+        "oryp4": FOUR_BACKLIGHT_PATH,
         "serw11": FOUR_BACKLIGHT_PATH,
         "serw12": FOUR_BACKLIGHT_PATH,
         # More to come
