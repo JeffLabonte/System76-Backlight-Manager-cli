@@ -15,6 +15,7 @@ class KeyboardBacklight:
         "bonw14": SINGLE_BACKLIGHT_PATH,
         "darp5": LEGACY_SINGLE_BACKLIGHT_PATH,
         "darp6": SINGLE_BACKLIGHT_PATH,
+        "gaze17-3060-b": SINGLE_BACKLIGHT_PATH,
         "oryp4": FOUR_BACKLIGHT_PATH,
         "oryp5": FOUR_BACKLIGHT_PATH,
         "oryp6": SINGLE_BACKLIGHT_PATH,
